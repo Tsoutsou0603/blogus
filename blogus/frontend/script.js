@@ -1,0 +1,7 @@
+const API = 'http://localhost:3000';
+async function submitPost(){const u=document.getElementById('username').value;const c=document.getElementById('content').value.trim();const b=document.getElementById('bg-color').value;if(!c)return;await fetch(`${API}/posts`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,content:c,bgColor:b})});closePostForm();loadPosts();}
+async function loadPosts(){const r=await fetch(`${API}/posts`);const p=await r.json();const c=document.getElementById('posts');c.innerHTML='';document.getElementById('loader').style.display=p.length?'none':'block';p.forEach(x=>{const d=document.createElement('div');d.className='post';d.style.backgroundColor=x.bgColor;d.innerHTML=`<div class="post-header"><div class="avatar">${x.username[0].toUpperCase()}</div><div class="username">${x.username}</div></div><div class="post-content">${x.content.replace(/\n/g,'<br>')}</div><div class="reactions"><button class="reaction-btn" onclick="react(${x.id})">❤️</button><button class="reaction-btn" onclick="react(${x.id})">😂</button><button class="reaction-btn" onclick="react(${x.id})">👍 ${x.reactions||0}</button></div>`;c.appendChild(d);});}
+async function react(id){await fetch(`${API}/posts/${id}/react`,{method:'POST'});loadPosts();}
+function openPostForm(){document.getElementById('post-modal').style.display='flex';}
+function closePostForm(){document.getElementById('post-modal').style.display='none';document.getElementById('content').value='';}
+loadPosts();setInterval(loadPosts,10000);

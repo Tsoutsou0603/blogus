@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: Frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: Backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - db-data:/app    # ← on monte tout le dossier /app → plus de problème de droits
+    environment:
+      - NODE_ENV=production
+
+volumes:
+  db-data:

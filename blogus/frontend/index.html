@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BLOGUS</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header class="top-header"><div class="logo">BLOGUS</div></header>
+
+  <div id="loader" class="loader">Chargement des posts...</div>
+  <main id="posts"></main>
+
+  <!-- Modal Facebook-style -->
+  <div id="post-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close" onclick="closePostForm()">&times;</span>
+        <h2>Créer une publication</h2>
+      </div>
+      <div class="modal-body">
+        <div class="user-section">
+          <div class="avatar">T</div>
+          <input type="text" id="username" placeholder="Ton nom" class="username-input">
+        </div>
+        <textarea id="content" placeholder="Qu'est-ce qui te passe par la tête ?"></textarea>
+        <div class="color-picker">
+          <span>Fond :</span>
+          <input type="color" id="bg-color" value="#ffffff">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button onclick="submitPost()">Publier</button>
+      </div>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <div class="nav-item active" onclick="location.reload()"><i class="fas fa-home"></i><span>Accueil</span></div>
+    <div class="nav-item" onclick="openPostForm()"><i class="fas fa-edit"></i><span>Publier</span></div>
+  </nav>
+
+  <script src="script.js"></script>
+</body>
+</html>
