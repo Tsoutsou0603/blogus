@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build & Test') {
+            steps {
+                sh 'docker compose down --remove-orphans || true'
+                sh 'docker compose build --no-cache'
+                sh 'docker compose up -d'
+                sh 'sleep 20'
+                sh 'curl -f http://localhost || exit 1'
+                sh 'curl -f http://localhost:3000/posts || exit 1'
+                echo "BLOGUS fonctionne parfaitement !"
+            }
+            post {
+                always {
+                    sh 'docker compose down || true'
+                }
+            }
+        }
+    }
+}
